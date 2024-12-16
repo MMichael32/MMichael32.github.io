@@ -14,7 +14,7 @@
     
     <script type="text/processing">
     
-      PImage plane;
+PImage plane;
 PImage bg, bg2;
 PImage pipeT, pipeB;
 int bgx;
@@ -73,6 +73,7 @@ void mousePressed(){
       px[i] = width + width/3*i;
       py[i] = int(random(200, height-200));
     }
+    bgx = 0;  // Reset the background position
   }
 }
 
@@ -106,6 +107,7 @@ void drawBG(){
     bgx = 0;
   }
 }
+
 
 
     </script>
