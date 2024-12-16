@@ -38,7 +38,6 @@ void setup(){
   pipeT = loadImage("pipe2.png");
   pipeB = loadImage("pipe.png");
   gameState = true;
-  bgx = 0;  // Start background at position 0
 }
 
 void draw(){
@@ -74,7 +73,7 @@ void mousePressed(){
       px[i] = width + width/3*i;
       py[i] = int(random(200, height-200));
     }
-    bgx = 0;  // Reset background to initial position
+    bgx = 0;  // Reset the background position
   }
 }
 
@@ -85,7 +84,7 @@ void drawPipes(){
     image(pipeB, px[i]-25, py[i]+100);
     if(px[i] < -50){
       px[i] = width + 50;
-      py[i] = int(random(100, height-100));
+      py[i] = int(random(100,height-100));
     }
   }
 }
@@ -100,12 +99,15 @@ void drawPlane(){
 }
 
 void drawBG(){
-  // Draw the background images in a smooth scrolling fashion
-  image(bg, bgx, 0);               // First background image
-  image(bg2, bgx + bg.width, 0);   // Second background image
-  image(bg, bgx + 2*bg.width, 0);  // Third background image
-  
-  bgx -= 1;  // Move the background left by 1 pixel per frame
+  image(bg,bgx,0);
+  image(bg2, bgx + bg.width, 0);
+  image(bg, bgx+2*bg.width, 0);
+  bgx-= 1;  
+  if(bgx < -2*bg.width){
+    bgx = 0;
+  }
+}
+
   
   // Reset the background when it's fully scrolled
   if(bgx <= -bg.width){
