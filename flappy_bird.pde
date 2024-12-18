@@ -3,9 +3,9 @@ PImage bg, bg2;
 PImage pipeT, pipeB;
 int bgx;
 int y, Vy;
-int[] px, py;  //We will change to arrays later
+int[] px, py;  // We will change to arrays later
 boolean gameState;
- 
+
 void setup(){
   size(600,600);
   bg = loadImage("bg.png");
@@ -23,6 +23,7 @@ void setup(){
   pipeB = loadImage("pipe.png");
   gameState = true;
 }
+
 void draw(){
   if(gameState){
     drawBG();
@@ -31,7 +32,7 @@ void draw(){
     checkCrash();
   }
 }
- 
+
 void checkCrash(){
   for(int i = 0; i < px.length; i++){
     //TOP
@@ -44,10 +45,22 @@ void checkCrash(){
     }
   }
 }
+
 void mousePressed(){
-  Vy = -13;
+  if (gameState) {
+    Vy = -13;
+  } else {  // If game is over, restart the game
+    gameState = true;
+    y = 0;
+    Vy = 0;
+    for(int i = 0; i < 3; i++){
+      px[i] = width + width/3*i;
+      py[i] = int(random(200, height-200));
+    }
+    bgx = 0;  // Reset the background position
+  }
 }
- 
+
 void drawPipes(){
   for(int i = 0; i < px.length; i++){
     px[i] = px[i] - 3;
@@ -59,7 +72,7 @@ void drawPipes(){
     }
   }
 }
- 
+
 void drawPlane(){
   image(plane, 50, y);
   y += Vy;
@@ -68,6 +81,7 @@ void drawPlane(){
     y = height-plane.height;
   }
 }
+
 void drawBG(){
   image(bg,bgx,0);
   image(bg2, bgx + bg.width, 0);
